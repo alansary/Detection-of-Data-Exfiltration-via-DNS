@@ -1,0 +1,111 @@
+{
+    "data": {
+      "processed-output": "src/data/processed/",
+      "interim-output": "src/data/interim/",
+      "dataframe_loc": "src/data/processed/final_processed_with_features.csv",
+      "data_loc": "src/data/processed/preprocessed.csv",
+      "preprocessed_data_report_loc": "src/data/processed/preprocessed_data_report.html",
+      "output": "results/output.csv",
+  
+      "random-forest":{
+        "test-size": 0.3,
+        "criterion": "gini",
+        "class_weight": "balanced",
+        "bootstrap": "true",
+        "n-estimators": 250,
+        "max-depth": 26,
+        "random_state": 0,
+        "filename": "models/random_forest.sav"
+      },
+
+      "decision-tree":{
+        "test-size": 0.3,
+        "criterion": "gini",
+        "class_weight": "balanced",
+        "max-depth": 26,
+        "random_state": 0,
+        "filename": "models/decision_tree.sav"
+      },
+  
+      "xgboost":{
+        "test-size": 0.3,
+        "objective": "binary:logistic",
+        "random_state": 0,
+        "filename": "models/xgboost.sav"
+      },
+
+      "mlp":{
+        "test-size": 0.3,
+        "activation": "relu",
+        "random_state": 0,
+        "filename": "models/mlp.sav"
+      },
+    
+      "datasets": {
+        "ds0": {
+          "name": "ds0",
+          "description": "Training-data",
+          "path": "src/data/raw/training_dataset.csv",
+          "columns": {
+            "FQDN_count": "Total count of characters in FQDN",
+            "subdomain_length": "Count of characters in subdomain",
+            "upper": "Count of uppercase characters",
+            "lower": "Count of lowercase characters",
+            "numeric": "Count of numerical characters",
+            "entropy": "Entropy of query name: H(X)=-∑_(k=1)^N [P(x_k)log_2 P(x_k)], X=query name, N=total number of unique characters, P(x_k)=the probability of the k-th symbol",
+            "special": "Number of special characters; special characters such as dash, underscore, equal sign, space, tab",
+            "labels": "Number of labels; e.g., in the query name \"www.scholar.google.com\", there are four labels separated by dots",
+            "labels_max": "Maximum label length",
+            "labels_average": "Average label length",
+            "longest_word": "Longest meaningful word over domain length average",
+            "sld": "Second level domain",
+            "len": "Length of domain and subdomain",
+            "subdomain": "Whether the domain has subdomain or not",
+            "Label": "Benign or malicious"
+          },
+          "label": "Label"
+        }
+      },
+      "columns": {
+        "FQDN_count": "Total count of characters in FQDN",
+        "subdomain_length": "Count of characters in subdomain",
+        "upper": "Count of uppercase characters",
+        "lower": "Count of lowercase characters",
+        "numeric": "Count of numerical characters",
+        "entropy": "Entropy of query name: H(X)=-∑_(k=1)^N [P(x_k)log_2 P(x_k)], X=query name, N=total number of unique characters, P(x_k)=the probability of the k-th symbol",
+        "special": "Number of special characters; special characters such as dash, underscore, equal sign, space, tab",
+        "labels": "Number of labels; e.g., in the query name \"www.scholar.google.com\", there are four labels separated by dots",
+        "labels_max": "Maximum label length",
+        "labels_average": "Average label length",
+        "longest_word": "Longest meaningful word over domain length average",
+        "sld": "Second level domain",
+        "len": "Length of domain and subdomain",
+        "subdomain": "Whether the domain has subdomain or not"
+      },
+      "label": "Label"
+    },
+  
+    "kafka": {
+      "bootstrap_servers": ["localhost:9092"],
+      "api_version": [0, 10, 1],
+      "producer": {
+        "kafka_topic": "ml-raw-dns",
+        "bulk_load_file_path": "src/data/processed/aggregated_data.csv"
+      },
+      "consumer": {
+        "kafka_topic_to_read_from": "ml-raw-dns",
+        "kafka_topic_to_send_to": "ml-dns-predictions"
+      },
+      "predicted_label": 1,
+      "confidence_score": 0.85
+    },
+  
+    "log_path": "logs/build.log",
+
+    "operating_system_version": "macOS Monterey 12.2.1",
+  
+    "project": {
+      "version": 1.0
+    }
+  }
+  
